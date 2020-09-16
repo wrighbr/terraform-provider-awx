@@ -4,7 +4,7 @@ go 1.14
 
 require (
 	github.com/gruntwork-io/terratest v0.29.0
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.0.2
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.0.3
 	github.com/mrcrilly/goawx v0.1.4
 	github.com/stretchr/testify v1.6.1
 	gopkg.in/yaml.v2 v2.3.0
