@@ -3,7 +3,7 @@ module github.com/mrcrilly/terraform-provider-awx
 go 1.14
 
 require (
-	github.com/gruntwork-io/terratest v0.29.0
+	github.com/gruntwork-io/terratest v0.30.3
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.0.3
 	github.com/mrcrilly/goawx v0.1.4
 	github.com/stretchr/testify v1.6.1
