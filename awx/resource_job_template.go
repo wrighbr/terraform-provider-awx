@@ -367,5 +367,6 @@ func setJobTemplateResourceData(d *schema.ResourceData, r *awx.JobTemplate) *sch
 	d.Set("start_at_task", r.StartAtTask)
 	d.Set("survey_enabled", r.SurveyEnabled)
 	d.Set("verbosity", r.Verbosity)
+	d.SetId(strconv.Itoa(r.ID))
 	return d
 }

@@ -10,7 +10,10 @@ import (
 
 func TestTerraformMinimalAccExample(t *testing.T) {
 	terraformOptions := &terraform.Options{
-		TerraformDir: "../examples/k8s",
+		TerraformDir: "../examples/k8s/base",
+	}
+	terraformDataOptions := &terraform.Options{
+		TerraformDir: "../examples/k8s/data",
 	}
 
 	defer terraform.Destroy(t, terraformOptions)
@@ -23,5 +26,12 @@ func TestTerraformMinimalAccExample(t *testing.T) {
 		t.Logf("Inventory id is not a number")
 		t.Fail()
 	}
-	assert.Greater(t, nr, 1)
+	assert.Greater(t, nr, 0)
+
+	terraform.InitAndApply(t, terraformDataOptions)
+
+	defer terraform.Destroy(t, terraformDataOptions)
+
+	output = terraform.Output(t, terraformDataOptions, "job")
+
 }
