@@ -1,6 +1,6 @@
 
 resource "awx_organization" "default" {
-  name            = "acc-test"
+  name = "acc-test"
 }
 
 resource "awx_inventory" "default" {
@@ -24,11 +24,11 @@ resource "awx_credential_machine" "credential" {
 }
 
 resource "awx_credential_scm" "credential" {
-  organisation_id     = awx_organization.default.id
-  name                = "acc-scm-credential"
-  username            = "test"
-  ssh_key_data        = file("${path.module}/files/id_rsa")
-  ssh_key_unlock      = "test"
+  organisation_id = awx_organization.default.id
+  name            = "acc-scm-credential"
+  username        = "test"
+  ssh_key_data    = file("${path.module}/files/id_rsa")
+  ssh_key_unlock  = "test"
 }
 
 resource "awx_inventory_group" "default" {
@@ -36,34 +36,34 @@ resource "awx_inventory_group" "default" {
   inventory_id = awx_inventory.default.id
 }
 resource "awx_workflow_job_template" "default" {
-  name         = "acc-workflow-job"
-  organisation_id      = awx_organization.default.id
-  inventory_id = awx_inventory.default.id
+  name            = "acc-workflow-job"
+  organisation_id = awx_organization.default.id
+  inventory_id    = awx_inventory.default.id
 }
 resource "random_uuid" "workflow_node_k3s_uuid" {}
 
 resource "awx_workflow_job_template_node" "default" {
 
-  workflow_job_template_id      = awx_workflow_job_template.default.id
-  unified_job_template_id = awx_job_template.template.id
-  inventory_id = awx_inventory.default.id
-  identifier = random_uuid.workflow_node_k3s_uuid.result
+  workflow_job_template_id = awx_workflow_job_template.default.id
+  unified_job_template_id  = awx_job_template.template.id
+  inventory_id             = awx_inventory.default.id
+  identifier               = random_uuid.workflow_node_k3s_uuid.result
 }
 resource "random_uuid" "workflow_node_second_uuid" {}
 
 resource "awx_workflow_job_template_node_success" "default" {
 
   workflow_job_template_node_id = awx_workflow_job_template_node.default.id
-  unified_job_template_id = awx_job_template.template.id
-  inventory_id = awx_inventory.default.id
-  identifier = random_uuid.workflow_node_second_uuid.result
+  unified_job_template_id       = awx_job_template.template.id
+  inventory_id                  = awx_inventory.default.id
+  identifier                    = random_uuid.workflow_node_second_uuid.result
 }
 
 resource "awx_host" "k3snode1" {
   name         = "acc-node1"
   inventory_id = awx_inventory.default.id
-  enabled   = true
-  variables = <<YAML
+  enabled      = true
+  variables    = <<YAML
 ---
 ansible_host: 192.168.178.29
 YAML
@@ -86,7 +86,7 @@ resource "time_sleep" "wait_seconds" {
 }
 
 resource "awx_job_template" "template" {
-  depends_on = [time_sleep.wait_seconds]
+  depends_on     = [time_sleep.wait_seconds]
   name           = "acc-job-template"
   job_type       = "run"
   inventory_id   = awx_inventory.default.id
@@ -108,6 +108,6 @@ resource "awx_inventory_source" "inventory_surces" {
 
 
 output "inventory_id" {
-    value = awx_inventory.default.id
+  value = awx_inventory.default.id
 }
 

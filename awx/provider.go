@@ -55,6 +55,7 @@ func Provider() *schema.Provider {
 			"awx_inventory":                  dataSourceInventory(),
 			"awx_job_template":               dataSourceJobTemplate(),
 			"awx_organization":               dataSourceOrganization(),
+			"awx_project":                    dataSourceProject(),
 			"awx_workflow_job_template":      dataSourceWorkflowJobTemplate(),
 		},
 		ConfigureContextFunc: providerConfigure,
